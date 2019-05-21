@@ -1,1 +1,2 @@
-# parser
+Run command:
+node test

@@ -3,6 +3,7 @@ const { createInterface } = require('readline');
 class Parser {
     constructor() {
         this.requests = {};
+        this.lineSeparator = '||';
     }
     parse(readStream, serializer = (key, item, obj) => obj[key] = item) {
         const symbol = Symbol();
@@ -38,10 +39,10 @@ class Parser {
         this.requests[symbol].data.push(newItem);
     }
     parseLine(line) {
-        return line.split('||').map(this.trim);
+        return line.split(this.lineSeparator).map(this.trim);
     }
     trim(item) {
-        return item.substring(1, item.length - 1)
+        return item[0] === '"' ? item.substring(1, item.length - 1): item;
     }
 }
 
